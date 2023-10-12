@@ -1,9 +1,15 @@
-import React from 'react'
+import { Footer } from "./_components/footer";
+import {Heading} from "./_components/heading";
+import { Heroes } from "./_components/heroes";
 
 export default function Home() {
   return (
-    <div className='bg-red-500 text-white h-full'>
-      Hello world
+    <div className="min-h-full flex flex-col">
+      <div className="flex flex-col items-center justify-center md:justify-start text-center gap-y-8 flex-1 px-6 pb-10">
+        <Heading />
+        <Heroes />
+      </div>
+      <Footer />
     </div>
-  )
+  );
 }
