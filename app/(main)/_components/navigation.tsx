@@ -7,6 +7,7 @@ import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
+import UserItem from "./user-item";
 
 // Navigation component that manages the sidebar and navbar display behavior.
 export function Navigation() {
@@ -155,7 +156,7 @@ export function Navigation() {
         </div>
         {/* Section for displaying action items. */}
         <div>
-          <p>Action Items</p>
+         <UserItem />
         </div>
         {/* Section for displaying documents. */}
         <div className="mt-4">
