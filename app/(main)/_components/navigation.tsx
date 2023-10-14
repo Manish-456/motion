@@ -3,16 +3,25 @@
 // Importing necessary modules and components for the Navigation component.
 import React, { useRef, useState, type ElementRef } from "react";
 import { usePathname } from "next/navigation";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, Search, PlusCircle, Settings } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import UserItem from "./user-item";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import Item from "./item";
+import { toast } from 'sonner';
+import DocumentList from "./document-list";
 
 // Navigation component that manages the sidebar and navbar display behavior.
 export function Navigation() {
   // Getting the current path of the page.
   const pathname = usePathname();
+
+ 
+  const create = useMutation(api.documents.create);
+
 
   // Checking if the screen width is considered mobile.
   const isMobile = useMediaQuery("(max-width : 768px)");
@@ -127,6 +136,17 @@ export function Navigation() {
     }
   };
 
+  // Create a untitled document
+   const handleCreate = () => {
+    const promise = create({
+      title : "Untitled"
+    });
+    toast.promise(promise, {
+      loading : "Creating a new note...",
+      success : "New note created!",
+      error : "Failed to create a new note"
+    })
+   }
   // Rendering the sidebar and navbar elements.
   return (
     <>
@@ -157,10 +177,25 @@ export function Navigation() {
         {/* Section for displaying action items. */}
         <div>
          <UserItem />
+        
+        <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+        
+         <Item 
+        onClick={() => {}}
+        label={"Settings"}
+        icon={Settings}
+        />
+         <Item 
+        onClick={handleCreate}
+        label={"New page"}
+        icon={PlusCircle}
+        />
+
+
         </div>
         {/* Section for displaying documents. */}
         <div className="mt-4">
-          <p>Documents</p>
+          <DocumentList />
         </div>
         {/* Resizable bar for adjusting the sidebar width. */}
         <div
