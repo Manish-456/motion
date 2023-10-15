@@ -23,7 +23,7 @@ import { useUser } from "@clerk/clerk-react";
 interface ItemProps {
   id?: Id<"documents">;
   documentIcon?: string;
-  onClick: () => void;
+  onClick?: () => void;
   onExpand?: () => void;
   active?: boolean;
   expanded?: boolean;
@@ -171,7 +171,7 @@ Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
     <div
       style={{
-        paddingLeft: level ? `${level * 12 * 25}px` : "12px",
+        paddingLeft: level ? `${(level * 12) + 25}px` : "12px",
       }}
       className={"flex gap-x-2 py-[3px]"}
     >
