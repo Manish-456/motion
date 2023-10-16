@@ -33,9 +33,13 @@ import Item from "./item";
 import { toast } from "sonner";
 import DocumentList from "./document-list";
 import { TrashBox } from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 // Navigation component that manages the sidebar and navbar display behavior.
 export function Navigation() {
+  const search = useSearch();
+  const settings = useSettings();
   // Getting the current path of the page.
   const pathname = usePathname();
 
@@ -196,9 +200,9 @@ export function Navigation() {
         <div>
           <UserItem />
 
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Search" icon={Search} isSearch onClick={() => search.onOpen()} />
 
-          <Item onClick={() => {}} label={"Settings"} icon={Settings} />
+          <Item onClick={() => settings.onOpen()} label={"Settings"} icon={Settings} />
           <Item onClick={handleCreate} label={"New page"} icon={PlusCircle} />
         </div>
         {/* Section for displaying documents. */}
