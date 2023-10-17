@@ -1,12 +1,9 @@
 "use client";
 
 // Importing necessary modules and components for the Navigation component.
-import React, {
-   useRef,
-   useState,
-   type ElementRef } from "react";
+import React, { useRef, useState, type ElementRef } from "react";
 
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import {
   ChevronsLeft,
   MenuIcon,
@@ -35,6 +32,7 @@ import DocumentList from "./document-list";
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
+import {Navbar} from "./navbar";
 
 // Navigation component that manages the sidebar and navbar display behavior.
 export function Navigation() {
@@ -42,6 +40,8 @@ export function Navigation() {
   const settings = useSettings();
   // Getting the current path of the page.
   const pathname = usePathname();
+
+  const params = useParams();
 
   const create = useMutation(api.documents.create);
 
@@ -200,28 +200,35 @@ export function Navigation() {
         <div>
           <UserItem />
 
-          <Item label="Search" icon={Search} isSearch onClick={() => search.onOpen()} />
+          <Item
+            label="Search"
+            icon={Search}
+            isSearch
+            onClick={() => search.onOpen()}
+          />
 
-          <Item onClick={() => settings.onOpen()} label={"Settings"} icon={Settings} />
+          <Item
+            onClick={() => settings.onOpen()}
+            label={"Settings"}
+            icon={Settings}
+          />
           <Item onClick={handleCreate} label={"New page"} icon={PlusCircle} />
         </div>
         {/* Section for displaying documents. */}
         <div className="mt-4">
           <DocumentList />
-          <Item 
-          onClick={handleCreate}
-           icon={Plus}
-           label="Add a page" />
-           <Popover>
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
+          <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash} />
             </PopoverTrigger>
             <PopoverContent
-            className="w-72 p-0"
-            side={isMobile ? "bottom" : "right"}>
-               <TrashBox />
+              className="w-72 p-0"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
             </PopoverContent>
-           </Popover>
+          </Popover>
         </div>
         {/* Resizable bar for adjusting the sidebar width. */}
         <div
@@ -239,16 +246,20 @@ export function Navigation() {
           "left-0 w-full": isMobile,
         })}
       >
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
         {/* Navbar element containing the menu icon for expanding the collapsed sidebar. */}
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
       </div>
     </>
   );
