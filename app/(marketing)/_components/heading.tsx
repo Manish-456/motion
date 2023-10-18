@@ -12,8 +12,7 @@ export function Heading() {
   return (
     <div className="max-w-3xl space-y-4">
       <h1 className="text-3xl md:text-6xl sm:text-5xl font-bold">
-        Your Ideas, Documents & Plans. Unified. Welcome to{" "}
-        <span className="underline">Motion</span>
+        Your <span className="underline">wiki</span>, <span className="underline">docs</span> &amp; <span className="underline">projects</span>. Unified.
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
         Motion is the connected workspace where <br />
