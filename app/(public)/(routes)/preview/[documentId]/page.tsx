@@ -9,7 +9,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function DocumentIdPage({
+export default function PreviewPage({
   params,
 }: {
   params: {
@@ -53,10 +53,10 @@ export default function DocumentIdPage({
 
   return (
     <div className="pb-40">
-      <Cover url={document.coverImage!} />
+      <Cover preview url={document.coverImage!} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-        <Toolbar initialData={document} />
-        <Editor onChange={onChange} initialContent={document.content} />
+        <Toolbar preview initialData={document} />
+        <Editor editable={false} onChange={onChange} initialContent={document.content} />
       </div>
     </div>
   );

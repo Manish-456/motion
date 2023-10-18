@@ -3,7 +3,7 @@
 // Importing necessary modules and components for the Navigation component.
 import React, { useRef, useState, type ElementRef } from "react";
 
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   ChevronsLeft,
   MenuIcon,
@@ -38,6 +38,7 @@ import {Navbar} from "./navbar";
 export function Navigation() {
   const search = useSearch();
   const settings = useSettings();
+  const router = useRouter();
   // Getting the current path of the page.
   const pathname = usePathname();
 
@@ -162,7 +163,7 @@ export function Navigation() {
   const handleCreate = () => {
     const promise = create({
       title: "Untitled",
-    });
+    }).then((documentId) => router.push(`/documents/${documentId}`) );
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",

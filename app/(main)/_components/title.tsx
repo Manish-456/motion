@@ -34,7 +34,7 @@ export function Title({ initialData }: TitleProps) {
     setTitle(event.target.value)
     update({
         id : initialData._id,
-        title : (event.target.value).split(" ").join("-") || "Untitled"
+        title : event.target.value || "Untitled"
     })
   }
 
